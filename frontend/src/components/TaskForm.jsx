@@ -57,7 +57,7 @@ export default function TaskForm({ open, onClose, task, onSuccess, defaultDate }
       onOk={handleSubmit}
       onCancel={onClose}
       confirmLoading={loading}
-      width={600}
+      width={window.innerWidth < 768 ? '95%' : 600}
       destroyOnClose
     >
       <Form form={form} layout="vertical" initialValues={{ status: 'todo', assigned_to: 2 }}>
@@ -67,7 +67,7 @@ export default function TaskForm({ open, onClose, task, onSuccess, defaultDate }
         <Form.Item name="description" label="Description (optional)">
           <Input.TextArea rows={3} placeholder="Task description" />
         </Form.Item>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth < 480 ? '1fr' : '1fr 1fr', gap: 16 }}>
           <Form.Item name="priority" label="Priority (optional)">
             <Select allowClear placeholder="Select priority" options={PRIORITIES.map((p) => ({ value: p.value, label: p.label }))} />
           </Form.Item>

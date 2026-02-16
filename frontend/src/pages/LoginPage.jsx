@@ -29,7 +29,7 @@ export default function LoginPage() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(135deg, #FAF8F5 0%, #F0DCC8 100%)' }}>
-      <Card style={{ width: 400, boxShadow: '0 4px 12px rgba(139,115,85,0.12)', border: '1px solid #E8E0D8' }}>
+      <Card style={{ width: '100%', maxWidth: 400, margin: '0 16px', boxShadow: '0 4px 12px rgba(139,115,85,0.12)', border: '1px solid #E8E0D8' }}>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
           <Title level={3} style={{ marginBottom: 4 }}>JF Task Manager</Title>
           <Text type="secondary">Sign in to your account</Text>

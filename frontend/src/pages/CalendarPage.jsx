@@ -68,7 +68,7 @@ export default function CalendarPage() {
 
       {loading && <Spin />}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
         <Card size="small">
           <Calendar
             cellRender={dateCellRender}

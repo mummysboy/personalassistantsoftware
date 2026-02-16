@@ -67,21 +67,21 @@ export default function TaskDetailPage() {
         { title: task.title },
       ]} />
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-        <div>
-          <Space>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <Space wrap>
             <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/tasks')} />
-            <Title level={4} style={{ margin: 0 }}>{task.title}</Title>
+            <Title level={4} style={{ margin: 0, wordBreak: 'break-word' }}>{task.title}</Title>
             {task.is_pinned && <PushpinOutlined style={{ color: '#D4A06A', fontSize: 18 }} />}
           </Space>
-          <Space style={{ marginTop: 8 }}>
+          <Space style={{ marginTop: 8 }} wrap>
             <Tag color={statusConfig.color}>{statusConfig.label}</Tag>
             {priorityConfig && <Tag color={priorityConfig.color}>{priorityConfig.label}</Tag>}
             {task.category !== 'general' && <Tag>{task.category}</Tag>}
             {isOverdue && <Tag color="error">Overdue</Tag>}
           </Space>
         </div>
-        <Space>
+        <Space wrap>
           <Button icon={<PushpinOutlined />} onClick={handleTogglePin}>
             {task.is_pinned ? 'Unpin' : 'Pin'}
           </Button>
@@ -96,10 +96,10 @@ export default function TaskDetailPage() {
         </Space>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
         <div>
           <Card title="Details" size="small" style={{ marginBottom: 16 }}>
-            <Descriptions column={2} size="small">
+            <Descriptions column={{ xs: 1, sm: 2 }} size="small">
               <Descriptions.Item label="Status">
                 <Select
                   value={task.status}

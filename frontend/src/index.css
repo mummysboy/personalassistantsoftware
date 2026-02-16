@@ -80,3 +80,52 @@ body {
   border: 1px solid #E8E0D8;
   box-shadow: 0 1px 3px rgba(139,115,85,0.08);
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .site-layout-content {
+    padding: 12px;
+  }
+
+  .logo {
+    font-size: 15px;
+    margin: 12px;
+  }
+
+  .ant-layout-sider {
+    position: fixed !important;
+    z-index: 100;
+    height: 100vh;
+  }
+
+  .ant-layout-sider-collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    flex: 0 0 0 !important;
+    overflow: hidden;
+  }
+
+  .ant-table {
+    overflow-x: auto;
+  }
+
+  .ant-descriptions {
+    overflow-x: auto;
+  }
+
+  .ant-descriptions-item-label,
+  .ant-descriptions-item-content {
+    padding: 6px 8px !important;
+  }
+
+  .ant-modal {
+    max-width: calc(100vw - 32px) !important;
+    margin: 16px auto !important;
+  }
+
+  .ant-modal .ant-modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}

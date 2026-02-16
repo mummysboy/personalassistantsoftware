@@ -118,7 +118,7 @@ export default function RecurringPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
         <Title level={4} style={{ margin: 0 }}>Recurring Tasks</Title>
         <Button type="primary" icon={<PlusOutlined />} onClick={() => openModal()}>New Recurring Task</Button>
       </div>
@@ -131,6 +131,7 @@ export default function RecurringPage() {
           loading={loading}
           pagination={false}
           size="small"
+          scroll={{ x: 700 }}
         />
       </Card>
 
@@ -140,7 +141,7 @@ export default function RecurringPage() {
         onOk={handleSave}
         onCancel={() => setModalOpen(false)}
         confirmLoading={saving}
-        width={600}
+        width={window.innerWidth < 768 ? '95%' : 600}
         destroyOnClose
       >
         <Form form={form} layout="vertical" initialValues={{ category: 'general', frequency: 'weekly' }}>
@@ -150,7 +151,7 @@ export default function RecurringPage() {
           <Form.Item name="description" label="Description">
             <Input.TextArea rows={2} />
           </Form.Item>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth < 480 ? '1fr' : '1fr 1fr', gap: 16 }}>
             <Form.Item name="frequency" label="Frequency" rules={[{ required: true }]}>
               <Select options={FREQUENCIES} />
             </Form.Item>
@@ -168,7 +169,7 @@ export default function RecurringPage() {
                 allowClear
                 options={[
                   { value: 1, label: 'Jeffery Flippo (Boss)' },
-                  { value: 2, label: 'Alex Rivera (Assistant)' },
+                  { value: 2, label: 'Isaac Hirsch (Assistant)' },
                 ]}
               />
             </Form.Item>

@@ -17,14 +17,14 @@ export default function FilterBar({ filters, onChange, onClear }) {
         allowClear
         value={filters.search}
         onChange={(e) => update('search', e.target.value)}
-        style={{ width: 200 }}
+        style={{ width: 200, minWidth: 120, flex: '1 1 auto' }}
       />
       <Select
         placeholder="Status"
         allowClear
         value={filters.status}
         onChange={(v) => update('status', v)}
-        style={{ width: 150 }}
+        style={{ width: 150, minWidth: 110 }}
         options={STATUSES.map((s) => ({ value: s.value, label: s.label }))}
       />
       <Select
@@ -32,7 +32,7 @@ export default function FilterBar({ filters, onChange, onClear }) {
         allowClear
         value={filters.priority}
         onChange={(v) => update('priority', v)}
-        style={{ width: 130 }}
+        style={{ width: 130, minWidth: 110 }}
         options={PRIORITIES.map((p) => ({ value: p.value, label: p.label }))}
       />
       <Select
@@ -40,7 +40,7 @@ export default function FilterBar({ filters, onChange, onClear }) {
         allowClear
         value={filters.assigned_to}
         onChange={(v) => update('assigned_to', v)}
-        style={{ width: 180 }}
+        style={{ width: 180, minWidth: 120 }}
         options={[
           { value: 1, label: 'Isaac H' },
         ]}
@@ -50,14 +50,14 @@ export default function FilterBar({ filters, onChange, onClear }) {
         allowClear
         value={filters.category}
         onChange={(v) => update('category', v)}
-        style={{ width: 140 }}
+        style={{ width: 140, minWidth: 110 }}
         options={CATEGORIES.map((c) => ({ value: c, label: c.charAt(0).toUpperCase() + c.slice(1) }))}
       />
       <Select
         placeholder="Sort by"
         value={filters.sort}
         onChange={(v) => update('sort', v)}
-        style={{ width: 140 }}
+        style={{ width: 140, minWidth: 110 }}
         options={[
           { value: 'updated_at', label: 'Last Updated' },
           { value: 'created_at', label: 'Created' },

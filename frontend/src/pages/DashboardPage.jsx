@@ -44,8 +44,8 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <Title level={4} style={{ margin: 0 }}>Teamwork makes the dream work!</Title>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 8 }}>
+        <Title level={4} style={{ margin: 0, fontSize: 'clamp(16px, 4vw, 24px)' }}>Teamwork makes the dream work!</Title>
         <Button type="primary" icon={<PlusOutlined />} onClick={() => setFormOpen(true)}>
           New Task
         </Button>

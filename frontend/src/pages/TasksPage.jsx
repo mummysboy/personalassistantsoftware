@@ -32,9 +32,9 @@ export default function TasksPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
         <Title level={4} style={{ margin: 0 }}>Tasks</Title>
-        <Space>
+        <Space wrap>
           <Segmented
             options={[
               { value: 'list', icon: <BarsOutlined /> },
@@ -62,7 +62,7 @@ export default function TasksPage() {
           ))}
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
           {STATUSES.map((status) => (
             <div key={status.value}>
               <Title level={5} style={{ textAlign: 'center', padding: '8px', background: '#F5F0EB', borderRadius: 10, color: '#6B5E50' }}>
