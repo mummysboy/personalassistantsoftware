@@ -93,6 +93,7 @@ export default function DashboardPage() {
               <List
                 size="small"
                 dataSource={stats.recentActivity}
+                pagination={{ pageSize: 5, size: 'small', simple: true }}
                 renderItem={(item) => (
                   <List.Item
                     style={{ cursor: 'pointer', padding: '8px 0' }}
