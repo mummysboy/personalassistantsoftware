@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #FAF8F5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  color: #6B5E50;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-layout-content {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.stat-card .ant-statistic-title {
+  font-size: 14px;
+}
+
+.task-card {
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  border: 1px solid #E8E0D8;
+  box-shadow: 0 1px 3px rgba(139,115,85,0.08);
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 12px rgba(139,115,85,0.12);
+}
+
+.pinned-task {
+  border-left: 3px solid #D4A06A;
+}
+
+.priority-urgent {
+  color: #C46B5A;
+}
+
+.priority-high {
+  color: #D4A06A;
+}
+
+.priority-medium {
+  color: #8B7355;
+}
+
+.priority-low {
+  color: #7A9B6D;
+}
+
+.overdue {
+  color: #C46B5A;
+  font-weight: 600;
+}
+
+/* Warm card styling */
+.ant-card {
+  border: 1px solid #E8E0D8;
+  box-shadow: 0 1px 3px rgba(139,115,85,0.08);
+}
