@@ -1,25 +1,12 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
 const pool = require('../db/connection');
 const { authenticate } = require('../middleware/auth');
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = process.env.UPLOAD_DIR || './uploads';
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
+// Store files in memory for database storage
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
 // POST /api/tasks/:taskId/attachments
 router.post('/tasks/:taskId/attachments', authenticate, upload.single('file'), async (req, res, next) => {
@@ -27,9 +14,9 @@ router.post('/tasks/:taskId/attachments', authenticate, upload.single('file'), a
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
     const result = await pool.query(
-      `INSERT INTO attachments (task_id, uploaded_by, filename, file_path, file_size, mime_type)
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [req.params.taskId, req.user.id, req.file.originalname, req.file.path, req.file.size, req.file.mimetype]
+      `INSERT INTO attachments (task_id, uploaded_by, filename, file_path, file_size, mime_type, file_data)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, task_id, uploaded_by, filename, file_size, mime_type, created_at`,
+      [req.params.taskId, req.user.id, req.file.originalname, 'db', req.file.size, req.file.mimetype, req.file.buffer]
     );
 
     await pool.query(
@@ -52,7 +39,9 @@ router.get('/attachments/:id/download', authenticate, async (req, res, next) => 
     if (!result.rows[0]) return res.status(404).json({ error: 'Attachment not found' });
 
     const attachment = result.rows[0];
-    res.download(attachment.file_path, attachment.filename);
+    res.setHeader('Content-Type', attachment.mime_type || 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename="${attachment.filename}"`);
+    res.send(attachment.file_data);
   } catch (err) {
     next(err);
   }
@@ -67,7 +56,7 @@ router.get('/attachments/:id/view', authenticate, async (req, res, next) => {
     const attachment = result.rows[0];
     res.setHeader('Content-Type', attachment.mime_type || 'application/octet-stream');
     res.setHeader('Content-Disposition', `inline; filename="${attachment.filename}"`);
-    res.sendFile(path.resolve(attachment.file_path));
+    res.send(attachment.file_data);
   } catch (err) {
     next(err);
   }
@@ -78,11 +67,6 @@ router.delete('/attachments/:id', authenticate, async (req, res, next) => {
   try {
     const result = await pool.query('DELETE FROM attachments WHERE id = $1 RETURNING *', [req.params.id]);
     if (!result.rows[0]) return res.status(404).json({ error: 'Attachment not found' });
-
-    // Try to delete file from disk
-    try {
-      fs.unlinkSync(result.rows[0].file_path);
-    } catch { /* file may already be gone */ }
 
     res.json({ message: 'Attachment deleted' });
   } catch (err) {
